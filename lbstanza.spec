@@ -3,7 +3,7 @@
 
 Name:    lbstanza
 Version: 0.11.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: L.B. Stanza Programming Language 
 URL:     http://lbstanza.org
 License: BSD
