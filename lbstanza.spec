@@ -37,6 +37,7 @@ EOF
 
 cat << EOF > %{buildroot}%{_sysconfdir}/profile.d/stanza.sh
 export STANZA_CONFIG=%{_sysconfdir}
+export STANZA_FILE=%{_sysconfdir}/.stanza
 EOF
 
 find %{buildroot} -name '*~' -exec rm {} \;
