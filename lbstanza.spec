@@ -1,50 +1,52 @@
 %global uversion 0_11_7
-%global lstz lstanza
+%global sname lstanza
+%global stanza_data %{_datadir}/%{name}/%{uversion}
+%global stanza_libs %{_libdir}/%{name}/%{uversion}
 
 Name:    lbstanza
 Version: 0.11.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: L.B. Stanza Programming Language 
 URL:     http://lbstanza.org
 License: BSD
-Source0: http://lbstanza.org/resources/stanza/%{lstz}_%{uversion}.zip 
+Source0: http://lbstanza.org/resources/stanza/%{sname}_%{uversion}.zip 
 
 %description
 L.B. Stanza (Stanza for short) is an optionally-typed general-purpose language. 
 
 %prep
-%autosetup -c %{lstz}_%{uversion}
+%autosetup -c %{sname}_%{uversion}
 
 %build
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_datadir}/%{name}/{compiler,core,runtime}
-mkdir -p %{buildroot}%{_libdir}/%{name}/{pkgs,fast-pkgs}
+mkdir -p %{buildroot}%{stanza_data}/{compiler,core,runtime}
+mkdir -p %{buildroot}%{stanza_libs}/{pkgs,fast-pkgs}
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 
-install -p -m 755 pkgs/* %{buildroot}%{_libdir}/%{name}/pkgs
-install -p -m 755 fast-pkgs/* %{buildroot}%{_libdir}/%{name}/fast-pkgs
-install -p -m 755 compiler/* %{buildroot}%{_datadir}/%{name}/compiler
-install -p -m 755 core/* %{buildroot}%{_datadir}/%{name}/core
-install -p -m 755 runtime/* %{buildroot}%{_datadir}/%{name}/runtime
-install -p -m 755 stanza %{buildroot}%{_bindir}
-install -p -m 555 License.txt %{buildroot}%{_datadir}/%{name}/
+install -p -m 755 pkgs/*      %{buildroot}/%{stanza_libs}/pkgs
+install -p -m 755 fast-pkgs/* %{buildroot}/%{stanza_libs}/fast-pkgs
+install -p -m 755 compiler/*  %{buildroot}/%{stanza_data}/compiler
+install -p -m 755 core/*      %{buildroot}/%{stanza_data}/core
+install -p -m 755 runtime/*   %{buildroot}/%{stanza_data}/runtime
+install -p -m 555 License.txt %{buildroot}/%{stanza_data}/
+install -p -m 755 stanza      %{buildroot}%{_bindir}
 
 # Write the config file to the conventional location
 cat << EOF > %{buildroot}%{_sysconfdir}/.stanza
-install-dir = "%{_datadir}/%{name}"
+install-dir = "%{stanza_data}"
 platform = linux
-pkg-dirs = ("%{_libdir}/%{name}/pkgs")
-fast-pkg-dirs = ("%{_libdir}/%{name}/fast-pkgs")
+pkg-dirs = ("%{stanza_libs}/pkgs")
+fast-pkg-dirs = ("%{stanza_libs}/fast-pkgs")
 EOF
 
 # Add the needed environment variable and a few extra
 cat << EOF > %{buildroot}%{_sysconfdir}/profile.d/stanza.sh
 export STANZA_CONFIG=%{_sysconfdir}
 export STANZA_FILE=$STANZA_CONFIG/.stanza
-export STANZA_PKGS=%{_libdir}/%{name}/pkgs
-export STANZA_FAST_PKGS=%{_libdir}/%{name}/fast-pkgs
+export STANZA_PKGS=%{stanza_libs}/pkgs
+export STANZA_FAST_PKGS=%{stanza_libs}/fast-pkgs
 EOF
 
 # Clean out some random backup files
@@ -69,6 +71,8 @@ find %{buildroot} -name '*~' -exec rm {} \;
 
 
 %changelog
+* Sun Apr 16 2017 Jake Russo <madcap.russo@gmail.com> - 0.11.7-3
+- Separate data and libs into per-version folders
 * Sun Apr 16 2017 Jake Russo <madcap.russo@gmail.com> - 0.11.7-2
 - Refactor installation
 - Add more environment variables
