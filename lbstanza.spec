@@ -1,11 +1,11 @@
-%global uversion 0_11_7
+%global uversion 0_11_8
 %global sname lstanza
 %global stanza_data %{_datadir}/%{name}/%{uversion}
 %global stanza_libs %{_libdir}/%{name}/%{uversion}
 
 Name:    lbstanza
-Version: 0.11.7
-Release: 3%{?dist}
+Version: 0.11.8
+Release: 0.1%{?dist}
 Summary: L.B. Stanza Programming Language 
 URL:     http://lbstanza.org
 License: BSD
@@ -57,10 +57,8 @@ find %{buildroot} -name '*~' -exec rm {} \;
 
 %files
 %doc               examples/calculus.stanza
-%doc               examples/fibers.stanza
 %doc               examples/helloworld.stanza
 %doc               examples/sort.stanza
-%doc               examples/table.stanza
 %doc               examples/triforce.stanza
 %license           License.txt
 %config(noreplace) %{_sysconfdir}/.stanza
@@ -71,6 +69,8 @@ find %{buildroot} -name '*~' -exec rm {} \;
 
 
 %changelog
+* Sun Apr 16 2017 Jake Russo <madcap.russo@gmail.com> - 0.11.8-1
+- A fairly major restructuring of the mid-end to allow for more aggressive inlining optimizations
 * Sun Apr 16 2017 Jake Russo <madcap.russo@gmail.com> - 0.11.7-3
 - Separate data and libs into per-version folders
 * Sun Apr 16 2017 Jake Russo <madcap.russo@gmail.com> - 0.11.7-2
