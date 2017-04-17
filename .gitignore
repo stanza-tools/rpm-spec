@@ -1,2 +1,5 @@
 *.zip
+*.log
+lbstanza-*
 src
+x86_64
