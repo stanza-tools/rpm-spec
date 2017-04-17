@@ -20,7 +20,8 @@ L.B. Stanza (Stanza for short) is an optionally-typed general-purpose language.
 %install
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_datadir}/%{name}
-mkdir -p %{buildroot}%{_libdir}/%{name}
+mkdir -p %{buildroot}%{_libdir}/%{name}/pkgs
+mkdir -p %{buildroot}%{_libdir}/%{name}/fast-pkgs
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 
 install -p -m 755 pkgs/* %{buildroot}%{_libdir}/%{name}/pkgs
