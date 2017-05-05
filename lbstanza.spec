@@ -1,10 +1,10 @@
-%global uversion 0_11_9
+%global uversion 0_11_10
 %global sname lstanza
 %global stanza_data %{_datadir}/%{name}/%{uversion}
 %global stanza_libs %{_libdir}/%{name}/%{uversion}
 
 Name:    lbstanza
-Version: 0.11.9
+Version: 0.11.10
 Release: 0.1%{?dist}
 Summary: L.B. Stanza Programming Language 
 URL:     http://lbstanza.org
@@ -69,6 +69,8 @@ find %{buildroot} -name '*~' -exec rm {} \;
 
 
 %changelog
+* Fri May 05 2017 Jake Russo <madcap.russo@gmail.com> - 0.11.10-0.1
+- Another assumed bugfix of 0.11.8
 * Fri May 05 2017 Jake Russo <madcap.russo@gmail.com> - 0.11.9-0.1
 - Update to latest experimental release
 - Unknown changes though expected to be a bugfix of 0.11.8
